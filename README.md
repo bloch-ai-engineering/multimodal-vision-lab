@@ -29,15 +29,17 @@ A few-shot identity matcher on [LFW](https://vis-www.cs.umass.edu/lfw/):
 - Each image is embedded with `openai/clip-vit-base-patch32`.
 - A query gets the identity with the highest average cosine similarity, or "Unknown" if that similarity falls below a threshold.
 
-**Result: 17% accuracy.**
-- **What the notebook concluded:** CLIP is a general-purpose model, not a face model; angle and lighting vary; and there are few reference images.
-- **What a later review found:** the faces are passed to CLIP as flattened pixel vectors (`lfw_people.data`) rather than 2-D images (`lfw_people.images`). The transformers "ambiguous channel dimension" warnings in the output point to this. Feeding 2-D images is the first fix to try.
+**Result: 100% accuracy (6 of 6 query faces).**
+
+The first version scored **17%**. The cause was a preprocessing bug, not CLIP itself: faces were passed to the model as flattened 2,914-pixel vectors (`lfw_people.data`) instead of 2-D images (`lfw_people.images`). That garbled every embedding, and the transformers "ambiguous channel dimension" warnings in the output were the clue. After switching to the 2-D grayscale images and converting them to RGB properly, every query face matches its identity.
+
+The test set is small (2 queries per identity), so this shows the pipeline works. It isn't a benchmark.
 
 ## Takeaways
 
 - Captioning is solid on clean, typical scenes and weakest on cluttered scenes, small objects and colours.
 - VQA does well on salient-object questions and poorly on counting and fine-grained attributes.
-- For identity tasks, use embeddings trained for faces (e.g. ArcFace) and check that the preprocessing matches what the model expects. A general-purpose CLIP is a weak baseline.
+- For identity tasks, **check the preprocessing first**. One wrong array shape cost 83 points of accuracy. With correct inputs, general-purpose CLIP embeddings are a strong few-shot baseline. Face-specific embeddings (e.g. ArcFace) are the next step for harder, larger galleries.
 
 ## Run it
 
