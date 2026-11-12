@@ -4,6 +4,13 @@
 
 ![Python](https://img.shields.io/badge/python-3.11+-blue) ![Transformers](https://img.shields.io/badge/🤗%20Transformers-BLIP%20%C2%B7%20CLIP-yellow) ![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c)
 
+**Notebooks**: for the best reading experience, open them in nbviewer (full-page rendering) or Colab:
+
+| Notebook | Read | Run |
+|---|---|---|
+| `captioning_vqa_face_recognition.ipynb` | [![nbviewer](https://img.shields.io/badge/view-nbviewer-orange?logo=jupyter)](https://nbviewer.org/github/bloch-ai-engineering/multimodal-vision-lab/blob/main/notebooks/captioning_vqa_face_recognition.ipynb) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/bloch-ai-engineering/multimodal-vision-lab/blob/main/notebooks/captioning_vqa_face_recognition.ipynb) |
+
+
 ## 1. Image captioning: `Salesforce/blip-image-captioning-base`
 
 Captions for 5 images covering people, animals, an indoor scene, an outdoor scene, and a cluttered table (in [`images/`](images/)).
